@@ -18,26 +18,37 @@ public class Storage {
 			try {
 				storageFile.createNewFile();
 			} catch (IOException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
 	
 	public void removeExpired(){
+		
+	}
+	
+	public void loadCrystal(int id) {
 		try {
 			FileInputStream stream = new FileInputStream(storageFile);
 			InputStreamReader streamReader = new InputStreamReader(stream);
 			BufferedReader in = new BufferedReader(streamReader);
 			
-			
+			String line;
+			while((line = in.readLine()) != null) {
+				int id = Integer.valueOf(line.split("==")[0]);
+			}
+			in.close();
+			streamReader.close();
+			stream.close();
 			
 		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	
-	public void loadCrystal(int id) {
-		
 	}
 	
 	protected void addItem(Crystal crystal) {
