@@ -12,14 +12,24 @@ public class Main extends JavaPlugin{
 	Config config = new Config(this.getConfig());
 	@Override
 	public void onEnable() {
-		config.loadConfig();
+		try {
+			config.loadConfig();
+		} catch (IOException e) {
+			String Error = e.getMessage();
+			this.getServer().getConsoleSender().sendMessage(Error);
+		}
 		Commands commands = new Commands();
 		this.getServer().getPluginCommand("dc").setExecutor(commands);
 		super.onEnable();
 	}
 	@Override
 	public void onDisable() {
-		config.saveConfig();
+		try {
+			config.saveConfig();
+		} catch (IOException e) {
+			String Error = e.getMessage();
+			this.getServer().getConsoleSender().sendMessage(Error);
+		}
 		super.onDisable();
 	}
 
