@@ -28,7 +28,7 @@ public class Config {
 		List<String> damageCauses = config.getStringList("death-types");
 		dropForPVP = damageCauses.remove("PVP");
 		deathCause = new DamageCause[damageCauses.size()];
-		damageCauses.toArray(deathCause);
+		deathCause = damageCauses.toArray(deathCause);
 		
 		isUsingPermissions = config.getBoolean("use-permissions", false);
 		expirationDate = config.getLong("expiration-date", 0);

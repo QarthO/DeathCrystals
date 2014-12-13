@@ -13,7 +13,8 @@ public class Commands extends JavaPlugin{
 	String Project_Name = "DeathCrystals";
 	String CMD_Label = "deathcrystals";
 	String CMD_Alias = "dc";
-		private boolean isCommand(String cmd){
+	
+	private boolean isCommand(String cmd){
 		String[] CMDs= {"help", "enable", "disable", "reload", "debug"};
 		for(String command : CMDs){
 			if(cmd.equalsIgnoreCase(command)){
