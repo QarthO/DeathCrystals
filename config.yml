@@ -1,0 +1,50 @@
+#################################
+## DeathCrystals Configuration ##
+#################################
+
+## Only players with valid permissions drop DeathCrystals
+## deathcrystal.death
+ use-permissions: true
+
+## Use player heads instead of a DeathCrystal?
+ player-heads: false
+
+## How long until anyone can pick up the DeathCrystal
+## Set to 0 so any player can pick up the item.
+ pickup-protection: 30s
+ 
+## How long until the DeathCrystals inventory expires?
+## Set to 0 to disable
+ expiration-date: 1w
+
+## Can the DeathCrystal be destroyed? (ie. thrown into Lava)
+## The item still will de-spawn to prevent lag
+ invunerability: true 
+
+## Drop DeathCrystals on these death types
+## Valid Death Types: [BLOCK_EXPLOSION, CONTACT, CUSTOM, DROWNING, ENTITY_ATTACK, ENTITY_EXPLOSION, FALL, FALLING_BLOCK, FIRE, FIRE_TICK,
+##                     LAVA, LIGHTNING, MAGIC, MELTING, POSION, PVP, PROJECTILE, STARVATION, SUFFOCATION, SUICIDE, THORNS, VOID, WITHER]
+ death-type:
+   - BLOCK_EXPLOSION
+   - CONTACT
+   - CUSTOM
+   - DROWNING
+   - ENTITY_ATTACK
+   - ENTITY_EXPLOSION
+   - FALL
+   - FALLING_BLOCK
+   - FIRE
+   - FIRE_TICK
+   - LAVA
+   - LIGHTNING
+   - MAGIC
+   - MELTING
+   - POSION
+   - PVP
+   - PROJECTILE
+   - STARVATION
+   - SUFFOCATION
+   - SUICIDE
+   - THORNS
+   - VOID
+   - WITHER
