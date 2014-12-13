@@ -11,11 +11,6 @@ public class Storage {
 	
 	public int removeExpired(){
 		return 0;
-		
-	}
-	
-	public void saveStorage() {
-		
 	}
 	
 	public void loadStorage() {
