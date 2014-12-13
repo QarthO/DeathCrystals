@@ -19,13 +19,16 @@ public class Config {
 	long expirationDate;
 	boolean isUsingPlayerHeads;
 	long protectionTime;
-
+	
+	
 	public Config(FileConfiguration config) {
 		this.config = config;
 	}
 	
-	public void loadConfig() throws IOException{
-		createConfig();
+	
+	// Loads the config and creates the file if it doesn't exist.
+	// If the file can't be created, it throws an error.
+	public void loadConfig(){
 		
 		List<String> damageCauses = config.getStringList("death-types");
 		dropForPVP = damageCauses.remove("PVP");
@@ -38,8 +41,7 @@ public class Config {
 		protectionTime = config.getLong("pickup-protection", 0);	
 	}
 	
-	public void saveConfig() throws IOException{
-		createConfig();
+	public void saveConfig(){
 		
 		List<DamageCause> deathCauses = Arrays.asList(deathCause);
 		ArrayList<String> deathCauseString = new ArrayList<String>();
@@ -57,12 +59,6 @@ public class Config {
 		config.set("pickup-protection", protectionTime);
 	}
 	
-	private void createConfig() throws IOException{
-		File configFile = new File("plugins" + File.separator + "DeathCrystals" + File.separator + "config.yml");
-		if(configFile.exists()){
-			configFile.createNewFile();
-		}
-	}
 
 	public FileConfiguration getConfig() {
 		return config;
