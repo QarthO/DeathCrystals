@@ -1,7 +1,5 @@
 package me.quartzdev.DeathCrystals.config;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,16 +18,13 @@ public class Config {
 	boolean isUsingPlayerHeads;
 	long protectionTime;
 	
-	
 	public Config(FileConfiguration config) {
 		this.config = config;
 	}
 	
-	
 	// Loads the config and creates the file if it doesn't exist.
-	// If the file can't be created, it throws an error.
+	// If the file doesn't exist, it returns default values.
 	public void loadConfig(){
-		
 		List<String> damageCauses = config.getStringList("death-types");
 		dropForPVP = damageCauses.remove("PVP");
 		deathCause = new DamageCause[damageCauses.size()];
@@ -41,8 +36,8 @@ public class Config {
 		protectionTime = config.getLong("pickup-protection", 0);	
 	}
 	
+	// Saves the config from memory.
 	public void saveConfig(){
-		
 		List<DamageCause> deathCauses = Arrays.asList(deathCause);
 		ArrayList<String> deathCauseString = new ArrayList<String>();
 		for(DamageCause dc : deathCauses){
@@ -59,7 +54,8 @@ public class Config {
 		config.set("pickup-protection", protectionTime);
 	}
 	
-
+	//Getters and setters for config values.
+	
 	public FileConfiguration getConfig() {
 		return config;
 	}
