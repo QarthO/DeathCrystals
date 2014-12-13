@@ -3,7 +3,7 @@
  description: Drop DeathCrystals on Death
  author: QuartzDev
  
- main: me.quartzdev.DeathCrystals.commands
+ main: me.quartzdev.DeathCrystals.Main
 
  commands:
    deathcrystal:
