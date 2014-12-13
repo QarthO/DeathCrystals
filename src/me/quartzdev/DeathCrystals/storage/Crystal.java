@@ -10,7 +10,7 @@ public class Crystal {
 	long expirationDate;
 	ItemStack[] contents;
 	
-	private Crystal(Storage storage, int id, long expirationDate, ItemStack[] contents) {
+	public Crystal(Storage storage, int id, long expirationDate, ItemStack[] contents) {
 		this.storage = storage;
 		this.id = id;
 		this.expirationDate = expirationDate;
