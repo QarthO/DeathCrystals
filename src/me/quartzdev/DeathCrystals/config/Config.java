@@ -1,7 +1,6 @@
 package me.quartzdev.DeathCrystals.config;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.configuration.file.FileConfiguration;
@@ -11,7 +10,7 @@ public class Config {
 	
 	FileConfiguration config;
 	
-	DamageCause[] deathCause;
+	List<DamageCause> deathCause;
 	boolean dropForPVP;
 	boolean isUsingPermissions;
 	long expirationDate;
@@ -27,8 +26,6 @@ public class Config {
 	public void loadConfig(){
 		List<String> damageCauses = config.getStringList("death-types");
 		dropForPVP = damageCauses.remove("PVP");
-		deathCause = new DamageCause[damageCauses.size()];
-		damageCauses.toArray(deathCause);
 		
 		isUsingPermissions = config.getBoolean("use-permissions", false);
 		expirationDate = config.getLong("expiration-date", 0);
@@ -38,9 +35,8 @@ public class Config {
 	
 	// Saves the config from memory.
 	public void saveConfig(){
-		List<DamageCause> deathCauses = Arrays.asList(deathCause);
 		ArrayList<String> deathCauseString = new ArrayList<String>();
-		for(DamageCause dc : deathCauses){
+		for(DamageCause dc : deathCause){
 			deathCauseString.add(dc.toString());
 		}
 		if(dropForPVP){
@@ -60,7 +56,7 @@ public class Config {
 		return config;
 	}
 
-	public DamageCause[] getDeathCause() {
+	public List<DamageCause> getDeathCause() {
 		return deathCause;
 	}
 
@@ -88,7 +84,7 @@ public class Config {
 		this.config = config;
 	}
 
-	public void setDeathCause(DamageCause[] deathCause) {
+	public void setDeathCause(List<DamageCause> deathCause) {
 		this.deathCause = deathCause;
 	}
 
