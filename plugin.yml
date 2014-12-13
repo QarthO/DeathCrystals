@@ -1,0 +1,12 @@
+ name: DeathCrystals
+ version: 0.0.1
+ description: Drop DeathCrystals on Death
+ author: QuartzDev
+ 
+ main: me.quartzdev.DeathCrystals.commands
+
+ commands:
+   deathcrystal:
+     description: Commands
+   dc:
+     description: Alias
