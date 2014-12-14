@@ -14,7 +14,8 @@ public enum Language {
 	INCORRECT_USAGE(ChatColor.RED + "Error: Incorrect usage"),
 	NO_PERMISSIONS(ChatColor.RED + "Error: Insuffictient permissions"),
 	PLAYER_NOT_FOUND(ChatColor.RED +  "Error: Player not found"),
-    UKNOWN_COMMAND(ChatColor.RED + "Not a valid command\nTry /dc help");
+    UKNOWN_COMMAND(ChatColor.RED + "Not a valid command\nTry /dc help"),
+    CRYSTAL_LORE(ChatColor.GREEN + "Right-Click to Open Inventory");
 	
 	String Message;
 	
