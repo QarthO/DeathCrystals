@@ -58,14 +58,13 @@ public class PlayerListener implements Listener {
 	
 	@EventHandler
 	public void onDeath(EntityDamageEvent event) {
-		if (!(event.getEntity() instanceof Player)) {
-			return;
-		}
-		if (!(event.getEntity().isDead())) {
+		//Check if is a dead player
+		if (!(event.getEntity() instanceof Player) && !(event.getEntity().isDead())) {
 			return;
 		}
 		Player player = (Player) event.getEntity();
 		
+		//Check if the player's inventory is empty
 		ArrayList<ItemStack> droppedItems = new ArrayList<ItemStack>();
 		for (ItemStack item : player.getInventory().getContents()) {
 			droppedItems.add(item);
@@ -75,12 +74,12 @@ public class PlayerListener implements Listener {
 			return;
 		}
 		
+		//Check if the Death-Type is in the config
 		ArrayList<DamageCause> deathcause = new ArrayList<DamageCause>();
 		if (deathcause.contains(event.getCause())) {
 			Crystal crystal = Crystal.createItem(storage, config.getExpirationDate() + System.currentTimeMillis(), player.getInventory());
-			if (config.isUsingPlayerHeads()) {
+				player.getInventory().clear();
 				player.getInventory().addItem(getCrystal(player, crystal));
-			}
 		}
 	}
 	
@@ -106,6 +105,7 @@ public class PlayerListener implements Listener {
 					if (lore.get(-1).equals(ChatColor.GREEN + Verify_Crystal)) {
 						Inventory inv = Bukkit.createInventory(null, 45, im.getDisplayName());
 						inv.setContents(storage.loadCrystal(id).getContents().getContents());
+						event.getPlayer().openInventory(inv);
 					}
 				}
 			}
