@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
@@ -26,6 +27,7 @@ public class Config {
 	// If the file doesn't exist, it returns default values.
 	public void loadConfig(){
 		List<String> damageCauses = config.getStringList("death-types");
+		Bukkit.broadcastMessage("DamageCauses: " + damageCauses.toString());
 		dropForPVP = damageCauses.remove("PVP");
 		DamageCause[] deathCause2 = new DamageCause[damageCauses.size()];
 		deathCause2 = damageCauses.toArray(deathCause);
