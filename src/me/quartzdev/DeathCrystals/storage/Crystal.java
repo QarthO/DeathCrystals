@@ -18,29 +18,29 @@ public class Crystal {
 		
 		storage.addItem(this);
 	}
-
+	
 	public int getId() {
 		return id;
 	}
-
+	
 	public long getExpirationDate() {
 		return expirationDate;
 	}
-
+	
 	public Inventory getContents() {
 		return contents;
 	}
-
+	
 	protected void setId(int id) {
 		this.id = id;
 		storage.editItem(this);
 	}
-
+	
 	protected void setExpirationDate(long expirationDate) {
 		this.expirationDate = expirationDate;
 		storage.editItem(this);
 	}
-
+	
 	protected void setContents(Inventory contents) {
 		this.contents = contents;
 		storage.editItem(this);
@@ -50,8 +50,7 @@ public class Crystal {
 		storage.removeItem(this);
 		id = -1;
 		expirationDate = 0;
-		contents = null;		
+		contents = null;
 	}
 	
-
 }

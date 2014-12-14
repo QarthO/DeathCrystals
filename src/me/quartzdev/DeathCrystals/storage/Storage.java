@@ -17,7 +17,7 @@ public class Storage {
 	
 	public Storage(File storageFile) {
 		this.storageFile = storageFile;
-		if(!storageFile.exists()){
+		if (!storageFile.exists()) {
 			try {
 				storageFile.createNewFile();
 			} catch (IOException e) {
@@ -27,7 +27,7 @@ public class Storage {
 		}
 	}
 	
-	public void removeExpired(Config config){
+	public void removeExpired(Config config) {
 		FileInputStream stream;
 		InputStreamReader streamReader;
 		BufferedReader in;
@@ -41,13 +41,11 @@ public class Storage {
 			in = new BufferedReader(streamReader);
 			
 			String line;
-			while((line = in.readLine()) != null) {
-				if(Long.valueOf(line.split("==")[1]) > System.currentTimeMillis()) {
+			while ((line = in.readLine()) != null) {
+				if (Long.valueOf(line.split("==")[1]) > System.currentTimeMillis()) {
 					out.write(line);
 				}
 			}
-			
-			
 			
 			in.close();
 			
@@ -63,7 +61,6 @@ public class Storage {
 		}
 	}
 	
-
 	public Crystal loadCrystal(int id) {
 		FileInputStream stream;
 		InputStreamReader streamReader;
@@ -75,15 +72,13 @@ public class Storage {
 			in = new BufferedReader(streamReader);
 			
 			String line;
-			while((line = in.readLine()) != null) {
+			while ((line = in.readLine()) != null) {
 				int itemID = Integer.valueOf(line.split("==")[0]);
-				if(itemID == id){
+				if (itemID == id) {
 					in.close();
 					return new Crystal(this, itemID, Long.valueOf(line.split("==")[1]), Converters.fromBase64(line.split("==")[2]));
 				}
 			}
-			
-
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -111,7 +106,7 @@ public class Storage {
 			in = new BufferedReader(streamReader);
 			
 			String line;
-			while((line = in.readLine()) != null) {
+			while ((line = in.readLine()) != null) {
 				out.write(line);
 			}
 			
@@ -147,13 +142,11 @@ public class Storage {
 			in = new BufferedReader(streamReader);
 			
 			String line;
-			while((line = in.readLine()) != null) {
-				if(crystal.getId() != Integer.valueOf(line.split("==")[0])) {
+			while ((line = in.readLine()) != null) {
+				if (crystal.getId() != Integer.valueOf(line.split("==")[0])) {
 					out.write(line);
 				}
 			}
-			
-			
 			
 			in.close();
 			
@@ -169,7 +162,7 @@ public class Storage {
 		}
 	}
 	
-	protected void editItem(Crystal crystal){
+	protected void editItem(Crystal crystal) {
 		FileInputStream stream;
 		InputStreamReader streamReader;
 		BufferedReader in;
@@ -183,16 +176,14 @@ public class Storage {
 			in = new BufferedReader(streamReader);
 			
 			String line;
-			while((line = in.readLine()) != null) {
-				if(crystal.getId() == Integer.valueOf(line.split("==")[0])) {
+			while ((line = in.readLine()) != null) {
+				if (crystal.getId() == Integer.valueOf(line.split("==")[0])) {
 					String crystalString = crystal.getId() + "==" + crystal.getExpirationDate() + "==" + Converters.toBase64(crystal.getContents());
 					out.write(crystalString);
-				}else{
+				} else {
 					out.write(line);
 				}
 			}
-			
-			
 			
 			in.close();
 			

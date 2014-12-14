@@ -23,12 +23,12 @@ public class Config {
 	
 	// Loads the config and creates the file if it doesn't exist.
 	// If the file doesn't exist, it returns default values.
-	public void loadConfig(){
+	public void loadConfig() {
 		List<String> damageCausesList = config.getStringList("death-types");
 		dropForPVP = damageCausesList.remove("PVP");
 		
 		List<DamageCause> realDamageCausesList = new ArrayList<DamageCause>();
-		for(String damageCause : damageCausesList){
+		for (String damageCause : damageCausesList) {
 			realDamageCausesList.add(DamageCause.valueOf(damageCause));
 		}
 		
@@ -36,17 +36,17 @@ public class Config {
 		isUsingPermissions = config.getBoolean("use-permissions");
 		expirationDate = config.getLong("expiration-date");
 		isUsingPlayerHeads = config.getBoolean("player-heads");
-		protectionTime = config.getLong("pickup-protection");	
+		protectionTime = config.getLong("pickup-protection");
 	}
 	
 	// Saves the config from memory.
-	public void saveConfig(){
+	public void saveConfig() {
 		ArrayList<String> deathCauseString = new ArrayList<String>();
-		for(DamageCause dc : deathCause){
+		for (DamageCause dc : deathCause) {
 			deathCauseString.add(dc.toString());
 		}
 		
-		if(dropForPVP){
+		if (dropForPVP) {
 			deathCauseString.add("PVP");
 		}
 		
@@ -57,63 +57,62 @@ public class Config {
 		config.set("pickup-protection", protectionTime);
 	}
 	
-	//Getters and setters for config values.
+	// Getters and setters for config values.
 	
 	public FileConfiguration getConfig() {
 		return config;
 	}
-
+	
 	public List<DamageCause> getDeathCause() {
 		return deathCause;
 	}
-
+	
 	public boolean isDropForPVP() {
 		return dropForPVP;
 	}
-
+	
 	public boolean isUsingPermissions() {
 		return isUsingPermissions;
 	}
-
+	
 	public long getExpirationDate() {
 		return expirationDate;
 	}
-
+	
 	public boolean isUsingPlayerHeads() {
 		return isUsingPlayerHeads;
 	}
-
+	
 	public long getProtectionTime() {
 		return protectionTime;
 	}
-
+	
 	public void setConfig(FileConfiguration config) {
 		this.config = config;
 	}
-
+	
 	public void setDeathCause(List<DamageCause> deathCause) {
 		this.deathCause = deathCause;
 	}
-
+	
 	public void setDropForPVP(boolean dropForPVP) {
 		this.dropForPVP = dropForPVP;
 	}
-
+	
 	public void setUsingPermissions(boolean isUsingPermissions) {
 		this.isUsingPermissions = isUsingPermissions;
 	}
-
+	
 	public void setExpirationDate(long expirationDate) {
 		this.expirationDate = expirationDate;
 	}
-
+	
 	public void setUsingPlayerHeads(boolean isUsingPlayerHeads) {
 		this.isUsingPlayerHeads = isUsingPlayerHeads;
 	}
-
+	
 	public void setProtectionTime(long protectionTime) {
 		this.protectionTime = protectionTime;
 	}
-	
 	
 }
