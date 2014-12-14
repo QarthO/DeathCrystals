@@ -37,6 +37,7 @@ public class Config {
 			deathCauses.add(realDamageCause);
 		}
 		
+		// TODO Make letters work.
 		isUsingPermissions = config.getBoolean("use-permissions");
 		expirationDate = config.getLong("expiration-date");
 		isUsingPlayerHeads = config.getBoolean("player-heads");

@@ -35,16 +35,12 @@ public class PlayerInteractListener implements Listener {
 	public void onInteract(PlayerInteractEvent event) {
 		ItemStack item = event.getPlayer().getItemInHand();
 		
-		Bukkit.broadcastMessage("Stuff interacted. Player heads: " + config.isUsingPlayerHeads());
-		
 		if (item.getType().equals(Material.SKULL_ITEM) || item.getType().equals(Material.NETHER_STAR)) {
-			Bukkit.broadcastMessage("This way..");
 			if (event.getAction().equals(Action.RIGHT_CLICK_AIR) || event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
 				
 				// Nothing happens if a player clicks on an interactable type
 				// block.
 				if (event.isBlockInHand()) {
-					Bukkit.broadcastMessage("Clicked block: " + event.getClickedBlock().getType());
 					
 					Material[] interactables = { Material.CHEST, Material.FURNACE, Material.WOOD_BUTTON, Material.WOODEN_DOOR, Material.STONE_BUTTON, Material.BED_BLOCK, Material.BEACON, Material.WORKBENCH, Material.ANVIL, Material.BOAT,
 							Material.BREWING_STAND, Material.BURNING_FURNACE, Material.CAKE_BLOCK, Material.COMMAND, Material.COMMAND_MINECART, Material.DAYLIGHT_DETECTOR, Material.TRAPPED_CHEST, Material.TRAP_DOOR, Material.STORAGE_MINECART,
@@ -54,8 +50,6 @@ public class PlayerInteractListener implements Listener {
 						return;
 					}
 				}
-				
-				Bukkit.broadcastMessage("here");
 				
 				// Verifies the item in the player's hand has meta.
 				if (!item.hasItemMeta()) {
@@ -70,13 +64,7 @@ public class PlayerInteractListener implements Listener {
 				List<String> lore = im.getLore();
 				
 				int id = Integer.valueOf(ChatColor.stripColor(lore.get(1)).replace("ID: ", ""));
-				Bukkit.broadcastMessage("ID: " + id); // For testing purposes
-				Bukkit.broadcastMessage("Language Crystal Lore: " + Language.CRYSTAL_LORE.getMessage());
-				Bukkit.broadcastMessage("Last thing: " + lore.get(lore.size() - 1));
-				Bukkit.broadcastMessage("Thing: " + lore.get(lore.size() - 1).equals(Language.CRYSTAL_LORE.getMessage()));
 				if (Language.CRYSTAL_LORE.getMessage().equals(lore.get(lore.size() - 1))) {
-					Bukkit.broadcastMessage("I'm guessing this didn't work."); // Again,
-																				// testing
 					Inventory inv = Bukkit.createInventory(null, 45, im.getDisplayName());
 					inv.setContents(storage.loadCrystal(id).getContents().getContents());
 					event.getPlayer().openInventory(inv);
