@@ -65,6 +65,16 @@ public class PlayerListener implements Listener {
 			return;
 		}
 		Player player = (Player) event.getEntity();
+		
+		ArrayList<ItemStack> droppedItems = new ArrayList<ItemStack>();
+		for (ItemStack item : player.getInventory().getContents()) {
+			droppedItems.add(item);
+		}
+
+		if (droppedItems.size() <= 0 || droppedItems == null) {
+			return;
+		}
+		
 		ArrayList<DamageCause> deathcause = new ArrayList<DamageCause>();
 		if (deathcause.contains(event.getCause())) {
 			Crystal crystal = Crystal.createItem(storage, config.getExpirationDate() + System.currentTimeMillis(), player.getInventory());
