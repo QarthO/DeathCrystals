@@ -19,6 +19,15 @@ public class Crystal {
 		storage.addItem(this);
 	}
 	
+	public Crystal(Storage storage, long expirationDate, Inventory contents) {
+		this.storage = storage;
+		this.id = 69;
+		this.expirationDate = expirationDate;
+		this.contents = contents;
+		
+		storage.addItem(this);
+	}
+	
 	public int getId() {
 		return id;
 	}
