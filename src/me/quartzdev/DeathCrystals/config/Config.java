@@ -3,7 +3,6 @@ package me.quartzdev.DeathCrystals.config;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
@@ -28,14 +27,13 @@ public class Config {
 	public void loadConfig() {
 		List<String> damageCausesList = config.getStringList("death-types");
 		dropForPVP = damageCausesList.remove("PVP");
-				
+		
 		ArrayList<DamageCause> realDamageCausesList = new ArrayList<DamageCause>();
 		for (String damageCause : damageCausesList) {
 			realDamageCausesList.add(DamageCause.valueOf(damageCause));
 		}
 		
-		for(DamageCause realDamageCause : realDamageCausesList) {
-			Bukkit.broadcastMessage("Real Damage Cause: "+realDamageCause);
+		for (DamageCause realDamageCause : realDamageCausesList) {
 			deathCauses.add(realDamageCause);
 		}
 		
@@ -99,6 +97,7 @@ public class Config {
 	public void setDeathCauses(ArrayList<DamageCause> deathCauses) {
 		this.deathCauses = deathCauses;
 	}
+	
 	public void setDropForPVP(boolean dropForPVP) {
 		this.dropForPVP = dropForPVP;
 	}

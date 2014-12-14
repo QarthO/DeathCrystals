@@ -17,6 +17,7 @@ public class Storage {
 	
 	public Storage(File storageFile) {
 		this.storageFile = storageFile;
+		storageFile.getParentFile().mkdirs();
 		if (!storageFile.exists()) {
 			try {
 				storageFile.createNewFile();
