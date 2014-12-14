@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
@@ -12,7 +11,7 @@ public class Config {
 	
 	FileConfiguration config;
 	
-	DamageCause[] deathCause;
+	List<DamageCause> deathCause;
 	boolean dropForPVP;
 	boolean isUsingPermissions;
 	long expirationDate;
@@ -26,16 +25,15 @@ public class Config {
 	// Loads the config and creates the file if it doesn't exist.
 	// If the file doesn't exist, it returns default values.
 	public void loadConfig(){
-		List<String> damageCauses = config.getStringList("death-types");
-		Bukkit.broadcastMessage("DamageCauses: " + damageCauses.toString());
-		dropForPVP = damageCauses.remove("PVP");
-		List<DamageCause> realDamageCauses = new ArrayList<DamageCause>();
-		for(String damageCause : damageCauses){
-			realDamageCauses.add(DamageCause.valueOf(damageCause));
+		List<String> damageCausesList = config.getStringList("death-types");
+		dropForPVP = damageCausesList.remove("PVP");
+		
+		List<DamageCause> realDamageCausesList = new ArrayList<DamageCause>();
+		for(String damageCause : damageCausesList){
+			realDamageCausesList.add(DamageCause.valueOf(damageCause));
 		}
-		DamageCause[] deathCause2 = new DamageCause[realDamageCauses.size()];
-		deathCause2 = realDamageCauses.toArray(deathCause);
-		deathCause = deathCause2;
+		
+		deathCause = realDamageCausesList;
 		
 		isUsingPermissions = config.getBoolean("use-permissions", false);
 		expirationDate = config.getLong("expiration-date", 0);
@@ -45,7 +43,7 @@ public class Config {
 	
 	// Saves the config from memory.
 	public void saveConfig(){
-		List<DamageCause> deathCauses = Arrays.asList(deathCause);
+		List<DamageCause> deathCauses = deathCause;
 		ArrayList<String> deathCauseString = new ArrayList<String>();
 		for(DamageCause dc : deathCauses){
 			deathCauseString.add(dc.toString());
@@ -67,7 +65,7 @@ public class Config {
 		return config;
 	}
 
-	public DamageCause[] getDeathCause() {
+	public List<DamageCause> getDeathCause() {
 		return deathCause;
 	}
 
@@ -95,7 +93,7 @@ public class Config {
 		this.config = config;
 	}
 
-	public void setDeathCause(DamageCause[] deathCause) {
+	public void setDeathCause(List<DamageCause> deathCause) {
 		this.deathCause = deathCause;
 	}
 
