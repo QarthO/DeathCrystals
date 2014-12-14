@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<?xml version="1.0" encoding="MacRoman" standalone="no"?>
 <jardesc>
-    <jar path="C:/Users/USER/Dropbox/__StratusTest_Server__/plugins/DeathCrystals.jar"/>
-    <options buildIfNeeded="true" compress="true" descriptionLocation="/DeathCrystals/Export.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <jar path="/Users/steven/Desktop/Minecraft/Server-Related/TestServer/plugins/DeathCrystals.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/DeathCrystals/Export.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
     <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
     <selectedProjects/>
     <manifest generateManifest="true" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
@@ -12,11 +12,11 @@
     </manifest>
     <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
         <file path="/DeathCrystals/plugin.yml"/>
-        <file path="/DeathCrystals/config.yml"/>
         <file path="/DeathCrystals/.gitignore"/>
+        <file path="/DeathCrystals/config.yml"/>
         <file path="/DeathCrystals/.gitattributes"/>
-        <javaElement handleIdentifier="=DeathCrystals/src"/>
         <file path="/DeathCrystals/.classpath"/>
         <file path="/DeathCrystals/.project"/>
+        <javaElement handleIdentifier="=DeathCrystals/src"/>
     </selectedElements>
 </jardesc>
