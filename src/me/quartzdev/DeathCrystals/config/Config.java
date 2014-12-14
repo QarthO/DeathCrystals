@@ -15,7 +15,7 @@ public class Config {
 	private ArrayList<DamageCause> deathCauses;
 	private boolean dropForPVP;
 	private boolean isUsingPermissions;
-	private long expirationDate;
+	private long expirationTime;
 	private boolean isUsingPlayerHeads;
 	private long protectionTime;
 	
@@ -42,7 +42,7 @@ public class Config {
 		// TODO Make letters work.
 		isUsingPermissions = config.getBoolean("use-permissions");
 		
-		expirationDate = Converters.convertLongTime(config.getString("expiration-date"));
+		expirationTime = Converters.convertLongTime(config.getString("expiration-date"));
 		isUsingPlayerHeads = config.getBoolean("player-heads");
 		protectionTime = Converters.convertLongTime(config.getString("pickup-protection"));
 	}
@@ -60,7 +60,7 @@ public class Config {
 		
 		config.set("death-types", deathCauseString);
 		config.set("use-permissions", isUsingPermissions);
-		config.set("expiration-date", Converters.convertStringTime(expirationDate));
+		config.set("expiration-date", Converters.convertStringTime(expirationTime));
 		config.set("player-heads", isUsingPlayerHeads);
 		config.set("pickup-protection", Converters.convertStringTime(protectionTime));
 	}
@@ -78,8 +78,8 @@ public class Config {
 		return isUsingPermissions;
 	}
 	
-	public long getExpirationDate() {
-		return expirationDate;
+	public long getExpirationTime() {
+		return expirationTime;
 	}
 	
 	public boolean isUsingPlayerHeads() {
@@ -119,9 +119,9 @@ public class Config {
 		config.set("use-permissions", isUsingPermissions);
 	}
 	
-	public void setExpirationDate(long expirationDate) {
-		this.expirationDate = expirationDate;
-		config.set("expiration-date", Converters.convertStringTime(expirationDate));
+	public void setExpirationTime(long expirationTime) {
+		this.expirationTime = expirationTime;
+		config.set("expiration-date", Converters.convertStringTime(expirationTime));
 	}
 	
 	public void setUsingPlayerHeads(boolean isUsingPlayerHeads) {

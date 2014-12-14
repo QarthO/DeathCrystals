@@ -57,7 +57,7 @@ public class Crystal {
 	
 	public String getReadableDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("MMMM d, yyyy 'at' h:mm a");
-		return sdf.format(this.getExpirationDate() + System.currentTimeMillis());
+		return sdf.format(this.getExpirationDate());
 	}
 	
 	public static Crystal createItem(Storage storage, long expirationDate, Inventory contents) {
@@ -68,6 +68,5 @@ public class Crystal {
 		storage.addItem(c);
 		return c;
 	}
-	
 	
 }

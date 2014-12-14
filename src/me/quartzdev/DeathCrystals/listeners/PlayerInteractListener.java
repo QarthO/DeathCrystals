@@ -5,6 +5,8 @@ import java.util.List;
 
 import me.quartzdev.DeathCrystals.Language;
 import me.quartzdev.DeathCrystals.config.Config;
+import me.quartzdev.DeathCrystals.storage.CrystalNotFoundException;
+import me.quartzdev.DeathCrystals.storage.ExpiredCrystalException;
 import me.quartzdev.DeathCrystals.storage.Storage;
 
 import org.bukkit.Bukkit;
@@ -40,8 +42,7 @@ public class PlayerInteractListener implements Listener {
 				
 				// Nothing happens if a player clicks on an interactable type
 				// block.
-				if (event.isBlockInHand()) {
-					
+				if (event.hasBlock()) {
 					Material[] interactables = { Material.CHEST, Material.FURNACE, Material.WOOD_BUTTON, Material.WOODEN_DOOR, Material.STONE_BUTTON, Material.BED_BLOCK, Material.BEACON, Material.WORKBENCH, Material.ANVIL, Material.BOAT,
 							Material.BREWING_STAND, Material.BURNING_FURNACE, Material.CAKE_BLOCK, Material.COMMAND, Material.COMMAND_MINECART, Material.DAYLIGHT_DETECTOR, Material.TRAPPED_CHEST, Material.TRAP_DOOR, Material.STORAGE_MINECART,
 							Material.REDSTONE_ORE, Material.POWERED_MINECART, Material.NOTE_BLOCK, Material.MINECART, Material.LEVER, Material.JUKEBOX, Material.ITEM_FRAME, Material.HOPPER_MINECART, Material.HOPPER, Material.FENCE_GATE,
@@ -65,9 +66,17 @@ public class PlayerInteractListener implements Listener {
 				
 				int id = Integer.valueOf(ChatColor.stripColor(lore.get(1)).replace("ID: ", ""));
 				if (Language.CRYSTAL_LORE.getMessage().equals(lore.get(lore.size() - 1))) {
-					Inventory inv = Bukkit.createInventory(null, 45, im.getDisplayName());
-					inv.setContents(storage.loadCrystal(id).getContents().getContents());
-					event.getPlayer().openInventory(inv);
+					try {
+						Inventory inv = Bukkit.createInventory(null, 45, im.getDisplayName());
+						inv.setContents(storage.loadCrystal(id).getContents().getContents());
+						event.getPlayer().openInventory(inv);
+					} catch (ExpiredCrystalException e) {
+						event.getPlayer().sendMessage(ChatColor.RED + "That crystal expired" + lore.get(0).replace("Expires", ""));
+						event.getPlayer().setItemInHand(null);
+					} catch (CrystalNotFoundException e) {
+						event.getPlayer().sendMessage(ChatColor.RED + "That crystal could not be found in the database. " + lore.get(1));
+						event.getPlayer().setItemInHand(null);
+					}
 				}
 			}
 		}

@@ -63,7 +63,7 @@ public class Storage {
 		}
 	}
 	
-	public Crystal loadCrystal(int id) {
+	public Crystal loadCrystal(int id) throws ExpiredCrystalException, CrystalNotFoundException {
 		FileInputStream stream;
 		InputStreamReader streamReader;
 		BufferedReader in;
@@ -78,6 +78,9 @@ public class Storage {
 				int itemID = Integer.valueOf(line.split("==")[0]);
 				if (itemID == id) {
 					in.close();
+					if (Long.valueOf(line.split("==")[1]) < System.currentTimeMillis()) {
+						throw new ExpiredCrystalException();
+					}
 					return new Crystal(this, itemID, Long.valueOf(line.split("==")[1]), Converters.fromBase64(line.split("==")[2]));
 				}
 			}
@@ -90,7 +93,7 @@ public class Storage {
 			e.printStackTrace();
 		}
 		
-		return null;
+		throw new CrystalNotFoundException();
 		
 	}
 	

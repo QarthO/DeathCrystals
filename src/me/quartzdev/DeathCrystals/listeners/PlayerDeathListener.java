@@ -46,7 +46,7 @@ public class PlayerDeathListener implements Listener {
 		ArrayList<DamageCause> deathCauses = new ArrayList<DamageCause>();
 		deathCauses = config.getDeathCauses();
 		if (deathCauses.contains(player.getLastDamageCause().getCause())) {
-			Crystal crystal = Crystal.createItem(storage, config.getExpirationDate() + System.currentTimeMillis(), player.getInventory());
+			Crystal crystal = Crystal.createItem(storage, config.getExpirationTime() + System.currentTimeMillis(), player.getInventory());
 			event.getDrops().clear();
 			event.getDrops().add(getCrystal(player, crystal));
 		}
