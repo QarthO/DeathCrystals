@@ -33,11 +33,10 @@ public class Config {
 		}
 		
 		deathCause = realDamageCausesList;
-		
-		isUsingPermissions = config.getBoolean("use-permissions", false);
-		expirationDate = config.getLong("expiration-date", 0);
-		isUsingPlayerHeads = config.getBoolean("player-heads", false);
-		protectionTime = config.getLong("pickup-protection", 0);	
+		isUsingPermissions = config.getBoolean("use-permissions");
+		expirationDate = config.getLong("expiration-date");
+		isUsingPlayerHeads = config.getBoolean("player-heads");
+		protectionTime = config.getLong("pickup-protection");	
 	}
 	
 	// Saves the config from memory.
