@@ -2,7 +2,6 @@ package me.quartzdev.DeathCrystals.config;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
@@ -31,6 +30,8 @@ public class Config {
 		for (String damageCause : damageCausesList) {
 			realDamageCausesList.add(DamageCause.valueOf(damageCause));
 		}
+		
+		
 		deathCause = realDamageCausesList;
 		isUsingPermissions = config.getBoolean("use-permissions");
 		expirationDate = config.getLong("expiration-date");
