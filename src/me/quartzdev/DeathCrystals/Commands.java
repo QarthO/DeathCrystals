@@ -29,7 +29,7 @@ public class Commands implements CommandExecutor{
 		Player player = (Player) sender;
 		if(commandLabel.equals(CMD_Label) || commandLabel.equals(CMD_Alias)){
 			if(args.length == 0){
-				player.sendMessage(ChatColor.LIGHT_PURPLE + Project_Name + " v" + "0.0.2");
+				player.sendMessage(ChatColor.LIGHT_PURPLE + Project_Name + " v" + "0.0.4");
 				return false;
 			}
 			if(isCommand(commandLabel)){

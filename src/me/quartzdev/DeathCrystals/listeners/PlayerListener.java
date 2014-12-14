@@ -16,8 +16,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -57,11 +58,13 @@ public class PlayerListener implements Listener {
 	}
 	
 	@EventHandler
-	public void onDeath(EntityDamageEvent event) {
+	public void onDeath(EntityDeathEvent event) {
 		//Check if is a dead player
-		if (!(event.getEntity() instanceof Player) && !(event.getEntity().isDead())) {
+		Bukkit.broadcastMessage("Entity Damaged");
+		if (!(event.getEntity() instanceof Player) && !(event instanceof PlayerDeathEvent)) {
 			return;
 		}
+		Bukkit.broadcastMessage("Is Player and is Dead");
 		Player player = (Player) event.getEntity();
 		
 		//Check if the player's inventory is empty
@@ -73,10 +76,10 @@ public class PlayerListener implements Listener {
 		if (droppedItems.size() <= 0 || droppedItems == null) {
 			return;
 		}
-		
+		Bukkit.broadcastMessage("Player's inventory isn't empty");
 		//Check if the Death-Type is in the config
 		ArrayList<DamageCause> deathcause = new ArrayList<DamageCause>();
-		if (deathcause.contains(event.getCause())) {
+		if (deathcause.contains(player.getLastDamageCause().getCause())) {			
 			Crystal crystal = Crystal.createItem(storage, config.getExpirationDate() + System.currentTimeMillis(), player.getInventory());
 				player.getInventory().clear();
 				player.getInventory().addItem(getCrystal(player, crystal));
