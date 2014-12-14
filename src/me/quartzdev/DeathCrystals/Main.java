@@ -1,6 +1,7 @@
 package me.quartzdev.DeathCrystals;
 
 import me.quartzdev.DeathCrystals.config.Config;
+import me.quartzdev.DeathCrystals.listeners.PlayerListener;
 
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -8,6 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Main extends JavaPlugin{
 	Plugin plugin;
 	Config config = new Config(this.getConfig());
+	PlayerListener Listener = new PlayerListener(this, config);
 	@Override
 	public void onEnable() {
 		this.saveDefaultConfig();
