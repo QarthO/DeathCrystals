@@ -3,6 +3,8 @@ package me.quartzdev.DeathCrystals.config;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.quartzdev.DeathCrystals.storage.Converters;
+
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
@@ -39,9 +41,10 @@ public class Config {
 		
 		// TODO Make letters work.
 		isUsingPermissions = config.getBoolean("use-permissions");
-		expirationDate = config.getLong("expiration-date");
+		
+		expirationDate = Converters.convertLongTime(config.getString("expiration-date"));
 		isUsingPlayerHeads = config.getBoolean("player-heads");
-		protectionTime = config.getLong("pickup-protection");
+		protectionTime = Converters.convertLongTime(config.getString("pickup-protection"));
 	}
 	
 	// Saves the config from memory.
@@ -57,16 +60,12 @@ public class Config {
 		
 		config.set("death-types", deathCauseString);
 		config.set("use-permissions", isUsingPermissions);
-		config.set("expiration-date", expirationDate);
+		config.set("expiration-date", Converters.convertStringTime(expirationDate));
 		config.set("player-heads", isUsingPlayerHeads);
-		config.set("pickup-protection", protectionTime);
+		config.set("pickup-protection", Converters.convertStringTime(protectionTime));
 	}
 	
 	// Getters and setters for config values.
-	public FileConfiguration getConfig() {
-		return config;
-	}
-	
 	public ArrayList<DamageCause> getDeathCauses() {
 		return deathCauses;
 	}
@@ -91,20 +90,33 @@ public class Config {
 		return protectionTime;
 	}
 	
-	public void setConfig(FileConfiguration config) {
-		this.config = config;
-	}
-	
 	public void setDeathCauses(ArrayList<DamageCause> deathCauses) {
 		this.deathCauses = deathCauses;
+		ArrayList<String> c = new ArrayList<String>();
+		for (DamageCause dc : deathCauses) {
+			c.add(dc.toString());
+		}
+		if (dropForPVP) {
+			c.add("PVP");
+		}
+		config.set("death-types", c);
 	}
 	
 	public void setDropForPVP(boolean dropForPVP) {
 		this.dropForPVP = dropForPVP;
+		ArrayList<String> c = new ArrayList<String>();
+		for (DamageCause dc : deathCauses) {
+			c.add(dc.toString());
+		}
+		if (dropForPVP) {
+			c.add("PVP");
+		}
+		config.set("death-types", c);
 	}
 	
 	public void setUsingPermissions(boolean isUsingPermissions) {
 		this.isUsingPermissions = isUsingPermissions;
+		config.set("use-permissions", isUsingPermissions);
 	}
 	
 	public void setExpirationDate(long expirationDate) {

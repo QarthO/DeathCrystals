@@ -51,4 +51,72 @@ public class Converters {
 		}
 	}
 	
+	public static long convertLongTime(String time) {
+		long finalTime = 0;
+		
+		String formatTime = "0";
+		for (char c : time.toCharArray()) {
+			if (Character.isDigit(c)) {
+				formatTime += c;
+			} else if (Character.isAlphabetic(c)) {
+				for (TimeType tt : TimeType.values()) {
+					if (c == tt.getTimeChar()) {
+						finalTime += Long.valueOf(formatTime) * tt.getAmountMillis();
+						formatTime = "0";
+						break;
+					}
+				}
+			}
+		}
+		
+		return finalTime;
+	}
+	
+	public static String convertStringTime(long time) {
+		String finalTime = "";
+		
+		long workingTime = 0;
+		
+		for (TimeType tt : TimeType.values()) {
+			while (time >= tt.getAmountMillis()) {
+				time -= tt.getAmountMillis();
+				workingTime++;
+			}
+			if (workingTime > 0) {
+				finalTime += workingTime + tt.getTimeChar();
+			}
+			workingTime = 0;
+		}
+		
+		return finalTime;
+	}
+	
+	public enum TimeType {
+		
+		SECONDS("Seconds", 's', 1000), MINUTES("Minutes", 'm', 60000), HOURS("Hours", 'h', 3600000), DAYS("Days", 'd', 86400000), WEEKS("Weeks", 'w', 604800000), YEARS("Years", 'y', 31536000000l), CENTURIES("Centuries", 'c', 3153600000000l);
+		
+		private String timeName;
+		private char timeChar;
+		private long amountMillis;
+		
+		private TimeType(String timeName, char timeChar, long amountMillis) {
+			this.timeName = timeName;
+			this.timeChar = timeChar;
+			this.amountMillis = amountMillis;
+		}
+		
+		protected String getTimeName() {
+			return timeName;
+		}
+		
+		protected char getTimeChar() {
+			return timeChar;
+		}
+		
+		protected long getAmountMillis() {
+			return amountMillis;
+		}
+		
+	}
+	
 }

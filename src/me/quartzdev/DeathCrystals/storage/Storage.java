@@ -115,9 +115,10 @@ public class Storage {
 					out.write(crystalString);
 					out.newLine();
 					placed = true;
+				} else {
+					out.write(line);
+					out.newLine();
 				}
-				out.write(line);
-				out.newLine();
 				
 			}
 			
