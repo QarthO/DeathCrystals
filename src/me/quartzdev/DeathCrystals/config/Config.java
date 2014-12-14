@@ -31,7 +31,6 @@ public class Config {
 		for (String damageCause : damageCausesList) {
 			realDamageCausesList.add(DamageCause.valueOf(damageCause));
 		}
-		
 		deathCause = realDamageCausesList;
 		isUsingPermissions = config.getBoolean("use-permissions");
 		expirationDate = config.getLong("expiration-date");
