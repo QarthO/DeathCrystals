@@ -41,11 +41,11 @@ public class Config {
 	
 	// Saves the config from memory.
 	public void saveConfig(){
-		List<DamageCause> deathCauses = deathCause;
 		ArrayList<String> deathCauseString = new ArrayList<String>();
-		for(DamageCause dc : deathCauses){
+		for(DamageCause dc : deathCause){
 			deathCauseString.add(dc.toString());
 		}
+		
 		if(dropForPVP){
 			deathCauseString.add("PVP");
 		}
