@@ -2,6 +2,8 @@ package me.quartzdev.DeathCrystals.config;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
@@ -9,7 +11,7 @@ public class Config {
 	
 	FileConfiguration config;
 	
-	List<DamageCause> deathCause;
+	ArrayList<DamageCause> deathCauses;
 	boolean dropForPVP;
 	boolean isUsingPermissions;
 	long expirationDate;
@@ -25,24 +27,24 @@ public class Config {
 	public void loadConfig() {
 		List<String> damageCausesList = config.getStringList("death-types");
 		dropForPVP = damageCausesList.remove("PVP");
-		
+				
 		List<DamageCause> realDamageCausesList = new ArrayList<DamageCause>();
 		for (String damageCause : damageCausesList) {
 			realDamageCausesList.add(DamageCause.valueOf(damageCause));
 		}
 		
 		
-		deathCause = realDamageCausesList;
+		deathCauses = new ArrayList<DamageCause>(realDamageCausesList);
 		isUsingPermissions = config.getBoolean("use-permissions");
 		expirationDate = config.getLong("expiration-date");
 		isUsingPlayerHeads = config.getBoolean("player-heads");
 		protectionTime = config.getLong("pickup-protection");
+		Bukkit.broadcastMessage(deathCauses + "");
 	}
-	
 	// Saves the config from memory.
 	public void saveConfig() {
 		ArrayList<String> deathCauseString = new ArrayList<String>();
-		for (DamageCause dc : deathCause) {
+		for (DamageCause dc : deathCauses) {
 			deathCauseString.add(dc.toString());
 		}
 		
@@ -58,13 +60,12 @@ public class Config {
 	}
 	
 	// Getters and setters for config values.
-	
 	public FileConfiguration getConfig() {
 		return config;
 	}
 	
-	public List<DamageCause> getDeathCause() {
-		return deathCause;
+	public ArrayList<DamageCause> getDeathCauses() {
+		return deathCauses;
 	}
 	
 	public boolean isDropForPVP() {
@@ -91,10 +92,9 @@ public class Config {
 		this.config = config;
 	}
 	
-	public void setDeathCause(List<DamageCause> deathCause) {
-		this.deathCause = deathCause;
+	public void setDeathCauses(ArrayList<DamageCause> deathCauses) {
+		this.deathCauses = deathCauses;
 	}
-	
 	public void setDropForPVP(boolean dropForPVP) {
 		this.dropForPVP = dropForPVP;
 	}

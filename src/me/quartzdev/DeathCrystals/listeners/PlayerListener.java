@@ -16,6 +16,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -74,9 +75,10 @@ public class PlayerListener implements Listener {
 			return;
 		}
 		//Check if the Death-Type is in the config
+		ArrayList<DamageCause> deathCauses = config.getDeathCauses();
 		Bukkit.broadcastMessage(player.getLastDamageCause().getCause() + "");
-		Bukkit.broadcastMessage(config.getDeathCause().toString() + "");
-		if (config.getDeathCause().contains(player.getLastDamageCause().getCause())) {	
+		Bukkit.broadcastMessage(ChatColor.RED + "" + deathCauses + "");
+		if (deathCauses.contains(player.getLastDamageCause().getCause())) {	
 			Crystal crystal = Crystal.createItem(storage, config.getExpirationDate() + System.currentTimeMillis(), player.getInventory());
 				event.getDrops().clear();
 				event.getDrops().add(getCrystal(player, crystal));
