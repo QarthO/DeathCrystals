@@ -121,14 +121,17 @@ public class Config {
 	
 	public void setExpirationDate(long expirationDate) {
 		this.expirationDate = expirationDate;
+		config.set("expiration-date", Converters.convertStringTime(expirationDate));
 	}
 	
 	public void setUsingPlayerHeads(boolean isUsingPlayerHeads) {
 		this.isUsingPlayerHeads = isUsingPlayerHeads;
+		config.set("player-heads", isUsingPlayerHeads);
 	}
 	
 	public void setProtectionTime(long protectionTime) {
 		this.protectionTime = protectionTime;
+		config.set("pickup-protection", Converters.convertStringTime(protectionTime));
 	}
 	
 }
