@@ -53,8 +53,8 @@ public class Crystal {
 		contents = null;
 	}
 	
-	public Crystal createItem(Storage storage, long expirationDate, Inventory contents) {
-		this.id = 69;
+	public static Crystal createItem(Storage storage, long expirationDate, Inventory contents) {
+		int id = 69;
 		// TODO Make ID work
 		
 		Crystal c = new Crystal(storage, id, expirationDate, contents);
