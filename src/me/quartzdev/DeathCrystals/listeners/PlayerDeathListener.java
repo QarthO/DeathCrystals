@@ -1,6 +1,5 @@
 package me.quartzdev.DeathCrystals.listeners;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -9,7 +8,6 @@ import me.quartzdev.DeathCrystals.config.Config;
 import me.quartzdev.DeathCrystals.storage.Crystal;
 import me.quartzdev.DeathCrystals.storage.Storage;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
