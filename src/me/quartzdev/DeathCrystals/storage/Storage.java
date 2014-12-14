@@ -1,15 +1,18 @@
 package me.quartzdev.DeathCrystals.storage;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import me.quartzdev.DeathCrystals.config.Config;
+
 public class Storage {
 	
-	// Structure for table: id, expiration_date, inv_contents
 	File storageFile;
 	
 	public Storage(File storageFile) {
@@ -24,10 +27,43 @@ public class Storage {
 		}
 	}
 	
-	public void removeExpired(){
+	public void removeExpired(Config config){
+		FileInputStream stream;
+		InputStreamReader streamReader;
+		BufferedReader in;
 		
+		try {
+			FileWriter w = new FileWriter(storageFile.toString());
+			BufferedWriter out = new BufferedWriter(w);
+			
+			stream = new FileInputStream(storageFile);
+			streamReader = new InputStreamReader(stream);
+			in = new BufferedReader(streamReader);
+			
+			String line;
+			while((line = in.readLine()) != null) {
+				if(Long.valueOf(line.split("==")[1]) > System.currentTimeMillis()) {
+					out.write(line);
+				}
+			}
+			
+			
+			
+			in.close();
+			
+			out.close();
+			w.close();
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
+
 	public Crystal loadCrystal(int id) {
 		FileInputStream stream;
 		InputStreamReader streamReader;
@@ -42,6 +78,7 @@ public class Storage {
 			while((line = in.readLine()) != null) {
 				int itemID = Integer.valueOf(line.split("==")[0]);
 				if(itemID == id){
+					in.close();
 					return new Crystal(this, itemID, Long.valueOf(line.split("==")[1]), Converters.fromBase64(line.split("==")[2]));
 				}
 			}
@@ -56,20 +93,118 @@ public class Storage {
 			e.printStackTrace();
 		}
 		
-		
 		return null;
 		
 	}
 	
 	protected void addItem(Crystal crystal) {
+		FileInputStream stream;
+		InputStreamReader streamReader;
+		BufferedReader in;
 		
+		try {
+			FileWriter w = new FileWriter(storageFile.toString());
+			BufferedWriter out = new BufferedWriter(w);
+			
+			stream = new FileInputStream(storageFile);
+			streamReader = new InputStreamReader(stream);
+			in = new BufferedReader(streamReader);
+			
+			String line;
+			while((line = in.readLine()) != null) {
+				out.write(line);
+			}
+			
+			String crystalString = crystal.getId() + "==" + crystal.getExpirationDate() + "==" + Converters.toBase64(crystal.getContents());
+			
+			out.write(crystalString);
+			
+			in.close();
+			
+			out.close();
+			w.close();
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	protected void removeItem(Crystal crystal) {
+		FileInputStream stream;
+		InputStreamReader streamReader;
+		BufferedReader in;
 		
+		try {
+			FileWriter w = new FileWriter(storageFile.toString());
+			BufferedWriter out = new BufferedWriter(w);
+			
+			stream = new FileInputStream(storageFile);
+			streamReader = new InputStreamReader(stream);
+			in = new BufferedReader(streamReader);
+			
+			String line;
+			while((line = in.readLine()) != null) {
+				if(crystal.getId() != Integer.valueOf(line.split("==")[0])) {
+					out.write(line);
+				}
+			}
+			
+			
+			
+			in.close();
+			
+			out.close();
+			w.close();
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	protected void editItem(Crystal crystal){
+		FileInputStream stream;
+		InputStreamReader streamReader;
+		BufferedReader in;
 		
+		try {
+			FileWriter w = new FileWriter(storageFile.toString());
+			BufferedWriter out = new BufferedWriter(w);
+			
+			stream = new FileInputStream(storageFile);
+			streamReader = new InputStreamReader(stream);
+			in = new BufferedReader(streamReader);
+			
+			String line;
+			while((line = in.readLine()) != null) {
+				if(crystal.getId() == Integer.valueOf(line.split("==")[0])) {
+					String crystalString = crystal.getId() + "==" + crystal.getExpirationDate() + "==" + Converters.toBase64(crystal.getContents());
+					out.write(crystalString);
+				}else{
+					out.write(line);
+				}
+			}
+			
+			
+			
+			in.close();
+			
+			out.close();
+			w.close();
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
