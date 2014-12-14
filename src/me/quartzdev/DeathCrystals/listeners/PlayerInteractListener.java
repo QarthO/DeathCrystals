@@ -3,6 +3,7 @@ package me.quartzdev.DeathCrystals.listeners;
 import java.util.Arrays;
 import java.util.List;
 
+import me.quartzdev.DeathCrystals.Language;
 import me.quartzdev.DeathCrystals.config.Config;
 import me.quartzdev.DeathCrystals.storage.Storage;
 
@@ -50,7 +51,7 @@ public class PlayerInteractListener implements Listener {
 					String id_string = ChatColor.stripColor(lore.get(2));
 					id_string = id_string.replace("ID: ", "");
 					id = Integer.getInteger(id_string);
-					if (lore.get(lore.size()-1).equals(ChatColor.GREEN + Verify_Crystal)) {
+					if (lore.get(lore.size()-1).equals(Language.CRYSTAL_LORE.getMessage())) {
 						Inventory inv = Bukkit.createInventory(null, 45, im.getDisplayName());
 						inv.setContents(storage.loadCrystal(id).getContents().getContents());
 						event.getPlayer().openInventory(inv);

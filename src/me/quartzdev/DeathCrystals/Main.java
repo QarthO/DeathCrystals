@@ -3,7 +3,8 @@ package me.quartzdev.DeathCrystals;
 import java.io.File;
 
 import me.quartzdev.DeathCrystals.config.Config;
-import me.quartzdev.DeathCrystals.listeners.PlayerListener;
+import me.quartzdev.DeathCrystals.listeners.PlayerDeathListener;
+import me.quartzdev.DeathCrystals.listeners.PlayerInteractListener;
 import me.quartzdev.DeathCrystals.storage.Storage;
 
 import org.bukkit.plugin.Plugin;
@@ -11,16 +12,24 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin{
 	Plugin plugin;
-	Config config = new Config(this.getConfig());
-	Storage storage = new Storage(new File("plugins" + File.separator + "DeathCrystals" + File.separator + "deathcrystals.txt"));
-	PlayerListener Listener = new PlayerListener(this, storage, config);
+	Config config;
+	Storage storage;
+	PlayerDeathListener playerDeathListener;
+	PlayerInteractListener playerInteractListener;
+	
 	@Override
 	public void onEnable() {
+		config = new Config(this.getConfig());
+		storage = new Storage(new File("plugins" + File.separator + "DeathCrystals" + File.separator + "deathcrystals.txt"));
+		playerDeathListener = new PlayerDeathListener(this, storage, config);
+		playerInteractListener = new PlayerInteractListener(this, storage, config);
+		
 		this.saveDefaultConfig();
 		config.loadConfig();
 		Commands commands = new Commands();
 		this.getServer().getPluginCommand("dc").setExecutor(commands);
-		this.getServer().getPluginManager().registerEvents(Listener, this);
+		this.getServer().getPluginManager().registerEvents(playerDeathListener, this);
+		this.getServer().getPluginManager().registerEvents(playerInteractListener, this);
 	}	
 	@Override
 	public void onDisable() {
