@@ -1,6 +1,6 @@
 package me.quartzdev.DeathCrystals.storage;
 
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Inventory;
 
 public class Crystal {
 	
@@ -8,9 +8,9 @@ public class Crystal {
 	
 	int id;
 	long expirationDate;
-	ItemStack[] contents;
+	Inventory contents;
 	
-	public Crystal(Storage storage, int id, long expirationDate, ItemStack[] contents) {
+	public Crystal(Storage storage, int id, long expirationDate, Inventory contents) {
 		this.storage = storage;
 		this.id = id;
 		this.expirationDate = expirationDate;
@@ -27,7 +27,7 @@ public class Crystal {
 		return expirationDate;
 	}
 
-	public ItemStack[] getContents() {
+	public Inventory getContents() {
 		return contents;
 	}
 
@@ -41,7 +41,7 @@ public class Crystal {
 		storage.editItem(this);
 	}
 
-	protected void setContents(ItemStack[] contents) {
+	protected void setContents(Inventory contents) {
 		this.contents = contents;
 		storage.editItem(this);
 	}

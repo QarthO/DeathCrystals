@@ -28,7 +28,7 @@ public class Storage {
 		
 	}
 	
-	public void loadCrystal(int id) {
+	public Crystal loadCrystal(int id) {
 		try {
 			FileInputStream stream = new FileInputStream(storageFile);
 			InputStreamReader streamReader = new InputStreamReader(stream);
@@ -36,7 +36,10 @@ public class Storage {
 			
 			String line;
 			while((line = in.readLine()) != null) {
-				int id = Integer.valueOf(line.split("==")[0]);
+				int itemID = Integer.valueOf(line.split("==")[0]);
+				if(itemID == id){
+					return new Crystal(this, itemID, Long.valueOf(line.split("==")[1]), Converters.fromBase64(line.split("==")[2]));
+				}
 			}
 			in.close();
 			streamReader.close();
@@ -49,6 +52,7 @@ public class Storage {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return null;
 	}
 	
 	protected void addItem(Crystal crystal) {
