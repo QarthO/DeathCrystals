@@ -29,8 +29,12 @@ public class Config {
 		List<String> damageCauses = config.getStringList("death-types");
 		Bukkit.broadcastMessage("DamageCauses: " + damageCauses.toString());
 		dropForPVP = damageCauses.remove("PVP");
-		DamageCause[] deathCause2 = new DamageCause[damageCauses.size()];
-		deathCause2 = damageCauses.toArray(deathCause);
+		List<DamageCause> realDamageCauses = new ArrayList<DamageCause>();
+		for(String damageCause : damageCauses){
+			realDamageCauses.add(DamageCause.valueOf(damageCause));
+		}
+		DamageCause[] deathCause2 = new DamageCause[realDamageCauses.size()];
+		deathCause2 = realDamageCauses.toArray(deathCause);
 		deathCause = deathCause2;
 		
 		isUsingPermissions = config.getBoolean("use-permissions", false);

@@ -29,10 +29,14 @@ public class Storage {
 	}
 	
 	public Crystal loadCrystal(int id) {
+		FileInputStream stream;
+		InputStreamReader streamReader;
+		BufferedReader in;
+		
 		try {
-			FileInputStream stream = new FileInputStream(storageFile);
-			InputStreamReader streamReader = new InputStreamReader(stream);
-			BufferedReader in = new BufferedReader(streamReader);
+			stream = new FileInputStream(storageFile);
+			streamReader = new InputStreamReader(stream);
+			in = new BufferedReader(streamReader);
 			
 			String line;
 			while((line = in.readLine()) != null) {
@@ -41,9 +45,8 @@ public class Storage {
 					return new Crystal(this, itemID, Long.valueOf(line.split("==")[1]), Converters.fromBase64(line.split("==")[2]));
 				}
 			}
-			in.close();
-			streamReader.close();
-			stream.close();
+			
+
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -52,7 +55,10 @@ public class Storage {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
 		return null;
+		
 	}
 	
 	protected void addItem(Crystal crystal) {
