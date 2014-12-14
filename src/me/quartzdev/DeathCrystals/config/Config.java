@@ -11,12 +11,12 @@ public class Config {
 	
 	FileConfiguration config;
 	
-	ArrayList<DamageCause> deathCauses;
-	boolean dropForPVP;
-	boolean isUsingPermissions;
-	long expirationDate;
-	boolean isUsingPlayerHeads;
-	long protectionTime;
+	private ArrayList<DamageCause> deathCauses;
+	private boolean dropForPVP;
+	private boolean isUsingPermissions;
+	private long expirationDate;
+	private boolean isUsingPlayerHeads;
+	private long protectionTime;
 	
 	public Config(FileConfiguration config) {
 		this.config = config;
