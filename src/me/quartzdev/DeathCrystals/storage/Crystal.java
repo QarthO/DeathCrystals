@@ -1,5 +1,7 @@
 package me.quartzdev.DeathCrystals.storage;
 
+import java.text.SimpleDateFormat;
+
 import org.bukkit.inventory.Inventory;
 
 public class Crystal {
@@ -53,6 +55,11 @@ public class Crystal {
 		contents = null;
 	}
 	
+	public String getReadableDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("MMMM d, yyyy 'at' h:mm a");
+		return sdf.format(this.getExpirationDate() + System.currentTimeMillis());
+	}
+	
 	public static Crystal createItem(Storage storage, long expirationDate, Inventory contents) {
 		int id = storage.getLowestUnusedCrystal();
 		
@@ -61,5 +68,6 @@ public class Crystal {
 		storage.addItem(c);
 		return c;
 	}
+	
 	
 }
