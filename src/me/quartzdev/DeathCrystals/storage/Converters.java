@@ -28,7 +28,7 @@ public class Converters {
 			
 			// Serialize that array
 			dataOutput.close();
-			return Base64Coder.encodeLines(outputStream.toByteArray());
+			return Base64Coder.encodeLines(outputStream.toByteArray()).replaceAll("\r\n", "&&");
 		} catch (Exception e) {
 			throw new IllegalStateException("Unable to save item stacks.", e);
 		}
@@ -36,7 +36,7 @@ public class Converters {
 	
 	public static Inventory fromBase64(String data) throws IOException {
 		try {
-			ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64Coder.decodeLines(data));
+			ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64Coder.decodeLines(data.replaceAll("&&", "\r\n")));
 			BukkitObjectInputStream dataInput = new BukkitObjectInputStream(inputStream);
 			Inventory inventory = Bukkit.getServer().createInventory(null, dataInput.readInt());
 			

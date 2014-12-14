@@ -239,6 +239,7 @@ public class Storage {
 			}
 			
 			in.close();
+			return linenumber++;
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
