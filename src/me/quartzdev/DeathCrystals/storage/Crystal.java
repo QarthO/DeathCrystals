@@ -10,18 +10,9 @@ public class Crystal {
 	long expirationDate;
 	Inventory contents;
 	
-	public Crystal(Storage storage, int id, long expirationDate, Inventory contents) {
+	protected Crystal(Storage storage, int id, long expirationDate, Inventory contents) {
 		this.storage = storage;
 		this.id = id;
-		this.expirationDate = expirationDate;
-		this.contents = contents;
-		
-		storage.addItem(this);
-	}
-	
-	public Crystal(Storage storage, long expirationDate, Inventory contents) {
-		this.storage = storage;
-		this.id = 69;
 		this.expirationDate = expirationDate;
 		this.contents = contents;
 		
@@ -60,6 +51,16 @@ public class Crystal {
 		id = -1;
 		expirationDate = 0;
 		contents = null;
+	}
+	
+	public Crystal createItem(Storage storage, long expirationDate, Inventory contents) {
+		this.id = 69;
+		// TODO Make ID work
+		
+		Crystal c = new Crystal(storage, id, expirationDate, contents);
+		
+		storage.addItem(c);
+		return c;
 	}
 	
 }
