@@ -54,8 +54,7 @@ public class Crystal {
 	}
 	
 	public static Crystal createItem(Storage storage, long expirationDate, Inventory contents) {
-		int id = 69;
-		// TODO Make ID work
+		int id = storage.getLowestUnusedCrystal();
 		
 		Crystal c = new Crystal(storage, id, expirationDate, contents);
 		

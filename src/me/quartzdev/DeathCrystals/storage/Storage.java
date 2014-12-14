@@ -44,6 +44,7 @@ public class Storage {
 			while ((line = in.readLine()) != null) {
 				if (Long.valueOf(line.split("==")[1]) > System.currentTimeMillis()) {
 					out.write(line);
+					out.newLine();
 				}
 			}
 			
@@ -106,13 +107,24 @@ public class Storage {
 			in = new BufferedReader(streamReader);
 			
 			String line;
+			boolean placed = false;
 			while ((line = in.readLine()) != null) {
+				if (crystal.getId() < Integer.valueOf(line.split("==")[0]) && !placed) {
+					String crystalString = crystal.getId() + "==" + crystal.getExpirationDate() + "==" + Converters.toBase64(crystal.getContents());
+					out.write(crystalString);
+					out.newLine();
+					placed = true;
+				}
 				out.write(line);
+				out.newLine();
+				
 			}
 			
-			String crystalString = crystal.getId() + "==" + crystal.getExpirationDate() + "==" + Converters.toBase64(crystal.getContents());
-			
-			out.write(crystalString);
+			if (!placed) {
+				String crystalString = crystal.getId() + "==" + crystal.getExpirationDate() + "==" + Converters.toBase64(crystal.getContents());
+				out.write(crystalString);
+				out.newLine();
+			}
 			
 			in.close();
 			
@@ -145,6 +157,7 @@ public class Storage {
 			while ((line = in.readLine()) != null) {
 				if (crystal.getId() != Integer.valueOf(line.split("==")[0])) {
 					out.write(line);
+					out.newLine();
 				}
 			}
 			
@@ -180,8 +193,10 @@ public class Storage {
 				if (crystal.getId() == Integer.valueOf(line.split("==")[0])) {
 					String crystalString = crystal.getId() + "==" + crystal.getExpirationDate() + "==" + Converters.toBase64(crystal.getContents());
 					out.write(crystalString);
+					out.newLine();
 				} else {
 					out.write(line);
+					out.newLine();
 				}
 			}
 			
@@ -198,4 +213,40 @@ public class Storage {
 			e.printStackTrace();
 		}
 	}
+	
+	protected int getLowestUnusedCrystal() {
+		FileInputStream stream;
+		InputStreamReader streamReader;
+		BufferedReader in;
+		
+		try {
+			
+			stream = new FileInputStream(storageFile);
+			streamReader = new InputStreamReader(stream);
+			in = new BufferedReader(streamReader);
+			
+			String line;
+			int linenumber = 1;
+			while ((line = in.readLine()) != null) {
+				int currentLineId = Integer.valueOf(line.split("==")[0]);
+				if (linenumber == currentLineId) {
+					linenumber++;
+				} else {
+					in.close();
+					return linenumber;
+				}
+			}
+			
+			in.close();
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	
 }
