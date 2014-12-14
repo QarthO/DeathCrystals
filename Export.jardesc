@@ -12,8 +12,8 @@
     </manifest>
     <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
         <file path="/DeathCrystals/plugin.yml"/>
-        <file path="/DeathCrystals/.gitignore"/>
         <file path="/DeathCrystals/config.yml"/>
+        <file path="/DeathCrystals/.gitignore"/>
         <file path="/DeathCrystals/.gitattributes"/>
         <javaElement handleIdentifier="=DeathCrystals/src"/>
         <file path="/DeathCrystals/.classpath"/>

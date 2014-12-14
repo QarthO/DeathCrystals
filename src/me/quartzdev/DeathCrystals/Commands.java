@@ -2,14 +2,11 @@ package me.quartzdev.DeathCrystals;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.java.JavaPlugin;
 
-public class Commands extends JavaPlugin{
-	Plugin plugin;
-	String version = plugin.getDescription().getVersion();
+public class Commands implements CommandExecutor{
 	String Project_Name = "DeathCrystals";
 	String CMD_Label = "deathcrystals";
 	String CMD_Alias = "dc";
@@ -27,12 +24,12 @@ public class Commands extends JavaPlugin{
 	public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 		if(!(sender instanceof Player)){
 			sender.sendMessage(Language.CONSOLE_MESSAGE.getMessage());
-			return super.onCommand(sender, command, commandLabel, args);
+			return false;
 		}
 		Player player = (Player) sender;
 		if(commandLabel.equals(CMD_Label) || commandLabel.equals(CMD_Alias)){
 			if(args.length == 0){
-				player.sendMessage(ChatColor.LIGHT_PURPLE + Project_Name + " v" + version);
+				player.sendMessage(ChatColor.LIGHT_PURPLE + Project_Name + " v" + "0.0.2");
 				return false;
 			}
 			if(isCommand(commandLabel)){
@@ -42,6 +39,6 @@ public class Commands extends JavaPlugin{
 			}
 			
 		}
-		return super.onCommand(sender, command, commandLabel, args);
+		return false;
 	}
 }
