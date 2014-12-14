@@ -102,7 +102,7 @@ public class PlayerListener implements Listener {
 					String id_string = ChatColor.stripColor(lore.get(2));
 					id_string = id_string.replace("ID: ", "");
 					id = Integer.getInteger(id_string);
-					if (lore.get(-1).equals(ChatColor.GREEN + Verify_Crystal)) {
+					if (lore.get(lore.size()-1).equals(ChatColor.GREEN + Verify_Crystal)) {
 						Inventory inv = Bukkit.createInventory(null, 45, im.getDisplayName());
 						inv.setContents(storage.loadCrystal(id).getContents().getContents());
 						event.getPlayer().openInventory(inv);
