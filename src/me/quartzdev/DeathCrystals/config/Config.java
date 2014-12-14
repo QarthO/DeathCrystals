@@ -20,6 +20,7 @@ public class Config {
 	
 	public Config(FileConfiguration config) {
 		this.config = config;
+		deathCauses = new ArrayList<DamageCause>();
 	}
 	
 	// Loads the config and creates the file if it doesn't exist.
@@ -28,19 +29,22 @@ public class Config {
 		List<String> damageCausesList = config.getStringList("death-types");
 		dropForPVP = damageCausesList.remove("PVP");
 				
-		List<DamageCause> realDamageCausesList = new ArrayList<DamageCause>();
+		ArrayList<DamageCause> realDamageCausesList = new ArrayList<DamageCause>();
 		for (String damageCause : damageCausesList) {
 			realDamageCausesList.add(DamageCause.valueOf(damageCause));
 		}
 		
+		for(DamageCause realDamageCause : realDamageCausesList) {
+			Bukkit.broadcastMessage("Real Damage Cause: "+realDamageCause);
+			deathCauses.add(realDamageCause);
+		}
 		
-		deathCauses = new ArrayList<DamageCause>(realDamageCausesList);
 		isUsingPermissions = config.getBoolean("use-permissions");
 		expirationDate = config.getLong("expiration-date");
 		isUsingPlayerHeads = config.getBoolean("player-heads");
 		protectionTime = config.getLong("pickup-protection");
-		Bukkit.broadcastMessage(deathCauses + "");
 	}
+	
 	// Saves the config from memory.
 	public void saveConfig() {
 		ArrayList<String> deathCauseString = new ArrayList<String>();
