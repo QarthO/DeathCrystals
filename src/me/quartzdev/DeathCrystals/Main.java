@@ -20,6 +20,7 @@ public class Main extends JavaPlugin{
 		config.loadConfig();
 		Commands commands = new Commands();
 		this.getServer().getPluginCommand("dc").setExecutor(commands);
+		this.getServer().getPluginManager().registerEvents(Listener, this);
 	}	
 	@Override
 	public void onDisable() {
