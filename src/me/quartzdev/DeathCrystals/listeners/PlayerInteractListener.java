@@ -35,13 +35,14 @@ public class PlayerInteractListener implements Listener {
 	public void onInteract(PlayerInteractEvent event) {
 		ItemStack item = event.getPlayer().getItemInHand();
 		
-		if (((config.isUsingPlayerHeads() && item.equals(Material.SKULL_ITEM)) || (!config.isUsingPlayerHeads() && item.equals(Material.NETHER_STAR))) && event.getAction().equals(Action.RIGHT_CLICK_AIR) || event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+		if (((config.isUsingPlayerHeads() && item.equals(Material.SKULL_ITEM)) || (!config.isUsingPlayerHeads() && item.equals(Material.NETHER_STAR))) && event.getAction().equals(Action.RIGHT_CLICK_AIR)
+				|| event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
 			
 			// Nothing happens if a player clicks on an interactible type block.
-			Material[] interactables = { Material.CHEST, Material.FURNACE, Material.WOOD_BUTTON, Material.WOODEN_DOOR, Material.STONE_BUTTON, Material.BED_BLOCK, Material.BEACON, Material.WORKBENCH, Material.ANVIL, Material.BOAT,
-					Material.BREWING_STAND, Material.BURNING_FURNACE, Material.CAKE_BLOCK, Material.COMMAND, Material.COMMAND_MINECART, Material.DAYLIGHT_DETECTOR, Material.TRAPPED_CHEST, Material.TRAP_DOOR, Material.STORAGE_MINECART,
-					Material.REDSTONE_ORE, Material.POWERED_MINECART, Material.NOTE_BLOCK, Material.MINECART, Material.LEVER, Material.JUKEBOX, Material.ITEM_FRAME, Material.HOPPER_MINECART, Material.HOPPER, Material.FENCE_GATE, Material.ENDER_CHEST,
-					Material.ENCHANTMENT_TABLE, Material.DROPPER, Material.DISPENSER, Material.DRAGON_EGG, Material.DIODE_BLOCK_ON, Material.DIODE_BLOCK_OFF };
+			Material[] interactables = { Material.CHEST, Material.FURNACE, Material.WOOD_BUTTON, Material.WOODEN_DOOR, Material.STONE_BUTTON, Material.BED_BLOCK, Material.BEACON, Material.WORKBENCH, Material.ANVIL, Material.BOAT, Material.BREWING_STAND,
+					Material.BURNING_FURNACE, Material.CAKE_BLOCK, Material.COMMAND, Material.COMMAND_MINECART, Material.DAYLIGHT_DETECTOR, Material.TRAPPED_CHEST, Material.TRAP_DOOR, Material.STORAGE_MINECART, Material.REDSTONE_ORE,
+					Material.POWERED_MINECART, Material.NOTE_BLOCK, Material.MINECART, Material.LEVER, Material.JUKEBOX, Material.ITEM_FRAME, Material.HOPPER_MINECART, Material.HOPPER, Material.FENCE_GATE, Material.ENDER_CHEST, Material.ENCHANTMENT_TABLE,
+					Material.DROPPER, Material.DISPENSER, Material.DRAGON_EGG, Material.DIODE_BLOCK_ON, Material.DIODE_BLOCK_OFF };
 			if (Arrays.asList(interactables).contains(event.getClickedBlock().getType())) {
 				return;
 			}
@@ -52,9 +53,14 @@ public class PlayerInteractListener implements Listener {
 			}
 			ItemMeta im = item.getItemMeta();
 			
+			// Verifies the item in the player's hand has lore.
+			if (!im.hasLore()) {
+				return;
+			}
 			List<String> lore = im.getLore();
+			
 			int id = Integer.valueOf(ChatColor.stripColor(lore.get(2)).replace("ID: ", ""));
-			if (lore.get(lore.size()-1).equals(Language.CRYSTAL_LORE.getMessage())) {
+			if (lore.get(lore.size() - 1).equals(Language.CRYSTAL_LORE.getMessage())) {
 				Inventory inv = Bukkit.createInventory(null, 45, im.getDisplayName());
 				inv.setContents(storage.loadCrystal(id).getContents().getContents());
 				event.getPlayer().openInventory(inv);
