@@ -14,12 +14,10 @@ public class Main extends JavaPlugin{
 		config.loadConfig();
 		Commands commands = new Commands();
 		this.getServer().getPluginCommand("dc").setExecutor(commands);
-		super.onEnable();
-	}
+	}	
 	@Override
 	public void onDisable() {
 		config.saveConfig();
-		super.onDisable();
 	}
 
 }
