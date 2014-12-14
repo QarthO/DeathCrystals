@@ -13,15 +13,15 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.Plugin;
 
-public class PlayerDeathListener implements Listener{
+public class PlayerDeathListener implements Listener {
 	
 	Plugin plugin;
 	Storage storage;
@@ -37,15 +37,15 @@ public class PlayerDeathListener implements Listener{
 	public void onDeath(EntityDeathEvent event) {
 		
 		// Verifies that player died and has inventory.
-		if(!isPlayerWithInventory(event)){
+		if (!isPlayerWithInventory(event)) {
 			return;
 		}
-		Player player = (Player)event.getEntity();
+		Player player = (Player) event.getEntity();
 		
 		// Verifies the death method is in the config.
 		ArrayList<DamageCause> deathCauses = new ArrayList<DamageCause>();
 		deathCauses = config.getDeathCauses();
-		if (deathCauses.contains(player.getLastDamageCause().getCause())) {	
+		if (deathCauses.contains(player.getLastDamageCause().getCause())) {
 			Crystal crystal = Crystal.createItem(storage, config.getExpirationDate() + System.currentTimeMillis(), player.getInventory());
 			event.getDrops().clear();
 			event.getDrops().add(getCrystal(player, crystal));
@@ -64,45 +64,39 @@ public class PlayerDeathListener implements Listener{
 		
 		ItemMeta im = deathCrystal.getItemMeta();
 		im.setDisplayName(ChatColor.DARK_PURPLE + player.getName() + "'s Inventory");
-		String[] lore = { 
-			ChatColor.RED + "Expires on " + crystal.getReadableDate(), 
-			ChatColor.BLACK + "ID: " + String.valueOf(crystal.getId()),
-			"", 
-			ChatColor.GREEN + Language.CRYSTAL_LORE.getMessage()
-		};
+		String[] lore = { ChatColor.RED + "Expires on " + crystal.getReadableDate(), ChatColor.BLACK + "ID: " + String.valueOf(crystal.getId()), "", ChatColor.GREEN + Language.CRYSTAL_LORE.getMessage() };
 		
-		if(isSkull){
+		if (isSkull) {
 			SkullMeta meta = (SkullMeta) im;
 			meta.setOwner(player.getName());
 			deathCrystal.setItemMeta(meta);
 		}
 		
 		im.setLore(Arrays.asList(lore));
+		deathCrystal.setItemMeta(im);
 		
 		return deathCrystal;
 	}
 	
-	private static boolean isPlayerWithInventory(EntityDeathEvent event){
+	private static boolean isPlayerWithInventory(EntityDeathEvent event) {
 		/*
-		 * Verify the Player is dead.
-		 * If not, returns.
+		 * Verify the Player is dead. If not, returns.
 		 */
 		if (!(event.getEntity() instanceof Player) && !(event instanceof PlayerDeathEvent)) {
 			return false;
-		}		
+		}
 		
 		// Verifies the player's inventory is empty
 		ArrayList<ItemStack> droppedItems = new ArrayList<ItemStack>();
 		for (ItemStack item : event.getDrops()) {
 			droppedItems.add(item);
 		}
-
+		
 		if (droppedItems.size() <= 0 || droppedItems == null) {
 			return false;
 		}
 		
-		
 		return true;
 	}
-
+	
 }
