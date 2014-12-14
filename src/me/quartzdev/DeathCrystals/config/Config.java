@@ -32,7 +32,7 @@ public class Config {
 			realDamageCausesList.add(DamageCause.valueOf(damageCause));
 		}
 		
-		deathCause = realDamageCausesList;
+		deathCause = new ArrayList<DamageCause>(realDamageCausesList);
 		isUsingPermissions = config.getBoolean("use-permissions");
 		expirationDate = config.getLong("expiration-date");
 		isUsingPlayerHeads = config.getBoolean("player-heads");
