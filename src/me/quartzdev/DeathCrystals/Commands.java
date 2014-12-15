@@ -32,8 +32,16 @@ public class Commands implements CommandExecutor{
 				player.sendMessage(ChatColor.LIGHT_PURPLE + Project_Name + " v" + "0.0.4");
 				return false;
 			}
-			if(isCommand(commandLabel)){
-				
+			if(isCommand(args[0])){
+				if(args[0].equalsIgnoreCase("help")){
+					if(args.length == 1){
+						player.sendMessage(Language.BORDER_TOP.getMessage());
+						player.sendMessage(Language.HELP.getMessage());
+						player.sendMessage(Language.BORDER_BOTTOM.getMessage());
+					} else{
+						player.sendMessage(Language.INCORRECT_USAGE.getMessage());
+					}
+				}
 			} else{
 				player.sendMessage(Language.UKNOWN_COMMAND.getMessage());
 			}
