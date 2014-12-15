@@ -1,9 +1,7 @@
 package me.quartzdev.DeathCrystals.listeners;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import me.quartzdev.DeathCrystals.Language;
 import me.quartzdev.DeathCrystals.config.Config;
 import me.quartzdev.DeathCrystals.storage.Crystal;
 import me.quartzdev.DeathCrystals.storage.Storage;
@@ -19,7 +17,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
 public class InventoryInteractListener implements Listener {
@@ -34,16 +31,14 @@ public class InventoryInteractListener implements Listener {
 	}
 	
 	@EventHandler
-	public void onInventoryInteract(InventoryClickEvent event) {
+	public void onInventoryInteract(InventoryClickEvent event) { // Bad way:
+																	// Language.CRYSTAL_LORE.getMessage().equals(lore.get(lore.size()
+																	// - 1))
 		if (isCrystalInventory(event.getInventory())) {
-			if (event.getCurrentItem().hasItemMeta()) {
-				ItemMeta im = event.getCurrentItem().getItemMeta();
-				if (im.hasLore()) {
-					List<String> lore = im.getLore();
-					if (Language.CRYSTAL_LORE.getMessage().equals(lore.get(lore.size() - 1))) {
-						event.setCancelled(true);
-						return;
-					}
+			for (HumanEntity he : event.getViewers()) {
+				if (event.getCurrentItem().equals(((Player) he).getItemInHand())) {
+					event.setCancelled(true);
+					return;
 				}
 			}
 		}
