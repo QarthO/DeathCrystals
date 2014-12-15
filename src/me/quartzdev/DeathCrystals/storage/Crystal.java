@@ -38,12 +38,12 @@ public class Crystal {
 		storage.editItem(this);
 	}
 	
-	protected void setExpirationDate(long expirationDate) {
+	public void setExpirationDate(long expirationDate) {
 		this.expirationDate = expirationDate;
 		storage.editItem(this);
 	}
 	
-	protected void setContents(Inventory contents) {
+	public void setContents(Inventory contents) {
 		this.contents = contents;
 		storage.editItem(this);
 	}

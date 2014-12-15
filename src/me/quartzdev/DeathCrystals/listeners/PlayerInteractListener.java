@@ -64,17 +64,18 @@ public class PlayerInteractListener implements Listener {
 				}
 				List<String> lore = im.getLore();
 				
-				int id = Integer.valueOf(ChatColor.stripColor(lore.get(1)).replace("ID: ", ""));
 				if (Language.CRYSTAL_LORE.getMessage().equals(lore.get(lore.size() - 1))) {
+					int id = Integer.valueOf(ChatColor.stripColor(lore.get(1)).replace("ID: ", ""));
+					
 					try {
-						Inventory inv = Bukkit.createInventory(null, 45, im.getDisplayName());
+						Inventory inv = Bukkit.createInventory(null, 45, im.getDisplayName() + ChatColor.GRAY + ChatColor.stripColor(lore.get(1)).replace("ID: ", ""));
 						inv.setContents(storage.loadCrystal(id).getContents().getContents());
 						event.getPlayer().openInventory(inv);
 					} catch (ExpiredCrystalException e) {
-						event.getPlayer().sendMessage(ChatColor.RED + "That crystal expired" + lore.get(0).replace("Expires", ""));
+						event.getPlayer().sendMessage(String.format(Language.CRYSTAL_EXPIRED.getMessage(), id, lore.get(0).replace("Expires on ", "")));
 						event.getPlayer().setItemInHand(null);
 					} catch (CrystalNotFoundException e) {
-						event.getPlayer().sendMessage(ChatColor.RED + "That crystal could not be found in the database. " + lore.get(1));
+						event.getPlayer().sendMessage(String.format(Language.CRYSTAL_NOT_FOUND.getMessage(), ChatColor.stripColor(lore.get(1)).replace("ID: ", "")));
 						event.getPlayer().setItemInHand(null);
 					}
 				}

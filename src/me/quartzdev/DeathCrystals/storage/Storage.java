@@ -82,7 +82,8 @@ public class Storage {
 				if (itemID == id) {
 					in.close();
 					if (Long.valueOf(line.split("==")[1]) < System.currentTimeMillis()) {
-						throw new ExpiredCrystalException();
+						removeItem(new Crystal(this, itemID, Long.valueOf(line.split("==")[1]), Converters.fromBase64(line.split("==")[2])));
+						throw new ExpiredCrystalException(id, Long.valueOf(line.split("==")[1]));
 					}
 					return new Crystal(this, itemID, Long.valueOf(line.split("==")[1]), Converters.fromBase64(line.split("==")[2]));
 				}
@@ -96,7 +97,7 @@ public class Storage {
 			e.printStackTrace();
 		}
 		
-		throw new CrystalNotFoundException();
+		throw new CrystalNotFoundException(id);
 		
 	}
 	
