@@ -64,7 +64,12 @@ public class PlayerDeathListener implements Listener {
 		
 		ItemMeta im = deathCrystal.getItemMeta();
 		im.setDisplayName(ChatColor.DARK_PURPLE + player.getName() + "'s Inventory");
-		String[] lore = { ChatColor.RED + "Expires on " + crystal.getReadableDate(), ChatColor.BLACK + "ID: " + String.valueOf(crystal.getId()), "", Language.CRYSTAL_LORE.getMessage() };
+		String[] lore = {
+				ChatColor.RED + "Expires on " + crystal.getReadableDate(),
+				ChatColor.BLACK + "ID: " + String.valueOf(crystal.getId()),
+				"",
+				Language.CRYSTAL_LORE.getMessage()
+			};
 		
 		if (isSkull) {
 			SkullMeta meta = (SkullMeta) im;
