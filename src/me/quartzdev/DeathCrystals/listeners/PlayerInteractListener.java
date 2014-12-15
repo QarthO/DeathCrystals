@@ -5,9 +5,9 @@ import java.util.List;
 
 import me.quartzdev.DeathCrystals.Language;
 import me.quartzdev.DeathCrystals.config.Config;
-import me.quartzdev.DeathCrystals.storage.CrystalNotFoundException;
-import me.quartzdev.DeathCrystals.storage.ExpiredCrystalException;
 import me.quartzdev.DeathCrystals.storage.Storage;
+import me.quartzdev.DeathCrystals.utils.CrystalNotFoundException;
+import me.quartzdev.DeathCrystals.utils.ExpiredCrystalException;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

@@ -1,4 +1,4 @@
-package me.quartzdev.DeathCrystals.storage;
+package me.quartzdev.DeathCrystals.utils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

@@ -3,7 +3,7 @@ package me.quartzdev.DeathCrystals.config;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.quartzdev.DeathCrystals.storage.Converters;
+import me.quartzdev.DeathCrystals.utils.Converters;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;

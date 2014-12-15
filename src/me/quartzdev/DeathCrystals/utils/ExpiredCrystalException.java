@@ -1,4 +1,4 @@
-package me.quartzdev.DeathCrystals.storage;
+package me.quartzdev.DeathCrystals.utils;
 
 public class ExpiredCrystalException extends Exception {
 	
