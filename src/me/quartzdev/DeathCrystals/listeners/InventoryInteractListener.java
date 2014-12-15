@@ -10,8 +10,6 @@ import me.quartzdev.DeathCrystals.storage.Storage;
 import me.quartzdev.DeathCrystals.utils.CrystalNotFoundException;
 import me.quartzdev.DeathCrystals.utils.ExpiredCrystalException;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
@@ -83,9 +81,7 @@ public class InventoryInteractListener implements Listener {
 		
 		if (!event.isCancelled()) {
 			try {
-				Bukkit.broadcastMessage("ID: " + ChatColor.stripColor(event.getView().getTopInventory().getTitle().split(ChatColor.GRAY + "")[1]));
-				Bukkit.broadcastMessage("Top Inventory: " + event.getView().getTopInventory());
-				Crystal crystal = storage.loadCrystal(Integer.valueOf(event.getView().getTopInventory().getTitle().split(ChatColor.GRAY + "")[1]));
+				Crystal crystal = storage.loadCrystal(Integer.valueOf(event.getView().getTopInventory().getTitle().split("ID")[1]));
 				crystal.setContents(event.getView().getTopInventory());
 			} catch (NumberFormatException | ExpiredCrystalException | CrystalNotFoundException e) {
 				event.setCancelled(true);

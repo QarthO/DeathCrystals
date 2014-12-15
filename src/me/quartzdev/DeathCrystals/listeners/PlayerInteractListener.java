@@ -68,7 +68,7 @@ public class PlayerInteractListener implements Listener {
 					int id = Integer.valueOf(ChatColor.stripColor(lore.get(1)).replace("ID: ", ""));
 					
 					try {
-						Inventory inv = Bukkit.createInventory(null, 45, im.getDisplayName() + ChatColor.GRAY + ChatColor.stripColor(lore.get(1)).replace("ID: ", ""));
+						Inventory inv = Bukkit.createInventory(null, 45, im.getDisplayName() + ChatColor.GRAY + "ID" + ChatColor.stripColor(lore.get(1)).replace("ID: ", ""));
 						inv.setContents(storage.loadCrystal(id).getContents().getContents());
 						event.getPlayer().openInventory(inv);
 					} catch (ExpiredCrystalException e) {
