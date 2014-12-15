@@ -37,13 +37,15 @@ public class InventoryInteractListener implements Listener {
 	
 	@EventHandler
 	public void onInventoryInteract(InventoryClickEvent event) {
-		if (event.getCurrentItem().hasItemMeta()) {
-			ItemMeta im = event.getCurrentItem().getItemMeta();
-			if (im.hasLore()) {
-				List<String> lore = im.getLore();
-				if (Language.CRYSTAL_LORE.getMessage().equals(lore.get(lore.size() - 1))) {
-					event.setCancelled(true);
-					return;
+		if (isCrystalInventory(event.getInventory())) {
+			if (event.getCurrentItem().hasItemMeta()) {
+				ItemMeta im = event.getCurrentItem().getItemMeta();
+				if (im.hasLore()) {
+					List<String> lore = im.getLore();
+					if (Language.CRYSTAL_LORE.getMessage().equals(lore.get(lore.size() - 1))) {
+						event.setCancelled(true);
+						return;
+					}
 				}
 			}
 		}
@@ -82,6 +84,7 @@ public class InventoryInteractListener implements Listener {
 		if (!event.isCancelled()) {
 			try {
 				Bukkit.broadcastMessage("ID: " + ChatColor.stripColor(event.getView().getTopInventory().getTitle().split(ChatColor.GRAY + "")[1]));
+				Bukkit.broadcastMessage("Top Inventory: " + event.getView().getTopInventory());
 				Crystal crystal = storage.loadCrystal(Integer.valueOf(event.getView().getTopInventory().getTitle().split(ChatColor.GRAY + "")[1]));
 				crystal.setContents(event.getView().getTopInventory());
 			} catch (NumberFormatException | ExpiredCrystalException | CrystalNotFoundException e) {
